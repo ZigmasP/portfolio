@@ -1,0 +1,40 @@
+// src/pages/pages.scss
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  .product-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .product-image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-info {
+    margin-top: 10px;
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .product-description {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .product-price {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
