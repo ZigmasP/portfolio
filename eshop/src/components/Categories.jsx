@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./categories.scss";
 
 //Importuojamame nuotraukas kaip modulius
 import maisytuvaiImg from "./assets/maišytuvai.jpg";
