@@ -1,0 +1,32 @@
+.product-item {
+    width: 200px; /* Arba bet koks kitas norimas plotis */
+    margin: 10px; /* Atstumas tarp elementų */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Pridėkite šešėlį */
+    border-radius: 8px; /* Pasirinktinai pridėkite kampų suapvalinimą */
+    overflow: hidden; /* Paslepia išsikišusias dalis */
+  }
+  
+  .product-image {
+    width: 100%; /* Užpildo visą konteinerio plotį */
+    height: 150px; /* Laiko proporcijas */
+  }
+  
+  .product-info {
+    padding: 10px;
+  }
+  
+  .product-name {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .product-description {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .product-price {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  

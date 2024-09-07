@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser, FaBars, FaSearch, FaSignOutAlt } from "react-icons/fa";
-import "./header.scss";
 
 const Header = ({ user, onLoginClick, onRegisterClick, onLogoutClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

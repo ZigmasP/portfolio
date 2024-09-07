@@ -1,0 +1,65 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap; /* Užtikrina, kad elementai pereitų į kitą eilę, jei nebetelpa */
+    justify-content: flex-start; /* Išdėsto elementus tolygiai */
+    gap: 2px; /* Tarpai tarp elementų */
+  }
+    
+  .product-item {
+    width: calc(16.66% - 20px); /* Užtikrina, kad 6 elementai tilptų vienoje eilėje */
+    margin: 10px; /* Atstumas tarp elementų */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Pridėkite šešėlį */
+    border-radius: 8px; /* Kampų suapvalinimas */
+    overflow: hidden; /* Paslepia išsikišusias dalis */
+    box-sizing: border-box; /* Įtraukia padding ir border į bendrą plotį */
+  }
+    
+  .product-image {
+    width: 100%; /* Užpildo visą konteinerio plotį */
+    height: 150px; /* Laiko proporcijas */
+  }
+    
+  .product-info {
+    padding: 10px;
+  }
+    
+  .product-name {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+    
+  .product-description {
+    font-size: 0.9rem;
+    color: #666;
+  }
+    
+  .product-price {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+    
+  /* Responsive dizainas */
+  @media (max-width: 1200px) {
+    .product-item {
+      width: calc(25% - 20px); /* 4 elementai vienoje eilėje */
+    }
+  }
+    
+  @media (max-width: 768px) {
+    .product-item {
+      width: calc(33.33% - 20px); /* 3 elementai vienoje eilėje */
+    }
+  }
+    
+  @media (max-width: 576px) {
+    .product-item {
+      width: calc(50% - 20px); /* 2 elementai vienoje eilėje */
+    }
+  }
+    
+  @media (max-width: 400px) {
+    .product-item {
+      width: calc(100% - 20px); /* 1 elementas vienoje eilėje */
+    }
+  }
+    
