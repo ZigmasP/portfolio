@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
 //Importuojamame nuotraukas kaip modulius
-import maisytuvaiImg from "./assets/maisytuvai.jpg";
-import voniaImg from "./assets/vonia.jpg";
-import dusasImg from "./assets/dušas.jpg";
-import unitazasImg from "./assts/unitazas.jpg";
-import kriaukleImg from "./assets/kriauklė.jpg";
+import maisytuvaiImg from "../assets/maišytuvai.jpg";
+import voniaImg from "../assets/vonia.jpg";
+import dusasImg from "../assets/dušas.jpg";
+import unitazasImg from "../assets/unitazas.jpg";
+import kriaukleImg from "../assets/kriauklė.jpg";
 
 const Categories = () => {
   const categories = [
