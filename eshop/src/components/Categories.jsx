@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 //Importuojamame nuotraukas kaip modulius
-import maisytuvaiImg from "./assets/maišytuvai.jpg";
+import maisytuvaiImg from "./assets/maisytuvai.jpg";
 import voniaImg from "./assets/vonia.jpg";
 import dusasImg from "./assets/dušas.jpg";
 import unitazasImg from "./assts/unitazas.jpg";

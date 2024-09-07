@@ -1,12 +1,12 @@
-import ProductList from "../components/ProductLIst";
-import { dusuiProducts } from "../data/DusuiProducts";
+import ProductList from "../components/ProductList";
+import { Dusui } from "../data/Dusui";
 import "./pages.scss";
 
 const DusuiPage = () => {
     return (
       <div>
         <h1>Dušai</h1>
-        <ProductList products={dusuiProducts} />
+        <ProductList products={Dusui} />
       </div>
     );
   };

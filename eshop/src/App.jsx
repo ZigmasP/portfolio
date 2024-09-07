@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import Categories from "./components/Categories";
+import Delivery from "./pages/Delivery";
+import Cart from "./pages/Cart";
+import MaisytuvaiPage from "./pages/MaisytuvaiPage";
+import VoniaiPage from "./pages/VoniaiPage";
+import DusuiPage from "./pages/DusuiPage";
+import UnitazaiPage from "./pages/UnitazaiPage";
+import KriauklesPage from "./pages/KriauklesPage";
+import "./index.scss";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const handleLoginClick = () => {
+    setShowLoginForm(true);
+  };
+
+  const handleRegisterClick = () => {
+    setShowRegisterForm(true);
+  };
+
+  const handleCloseLoginForm = () => {
+    setShowLoginForm(false);
+  };
+
+  const handleCloseRegisterForm = () => {
+    setShowRegisterForm(false);
+  };
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+    setShowLoginForm(false);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <Header
+        user={user}
+        onLoginClick={handleLoginClick}
+        onRegisterClick={handleRegisterClick}
+        onLogoutClick={handleLogout}
+      />
+      {showLoginForm && 
+        <LoginForm
+          onLogin={handleLogin}
+          onRegisterClick={handleRegisterClick}
+          onClose={handleCloseLoginForm}
+        />
+      }
+      {showRegisterForm && 
+        <RegisterForm onClose={handleCloseRegisterForm} />
+      }
+      
+      <main>
+        <Routes>
+          <Route path="/" element={<Categories />} />
+          <Route path="/delivery" element={<Delivery />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/category/maisytuvai" element={<MaisytuvaiPage />} />
+          <Route path="/category/voniai" element={<VoniaiPage />} />
+          <Route path="/category/dusui" element={<DusuiPage />} />
+          <Route path="/category/unitazai" element={<UnitazaiPage />} />
+          <Route path="/categorykriaukles" element={<KriauklesPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
