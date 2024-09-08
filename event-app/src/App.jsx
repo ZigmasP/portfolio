@@ -3,20 +3,21 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import PurchaseForm from "./components/PurchaseForm";
 import EventDetails from "./components/EventDetails";
-import PropTypes from "prop-types"; // Importuojame PropTypes
+import Ticket from "./components/Ticket"; // Importuojame Ticket komponentą
+import PropTypes from "prop-types";
 
 function App() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handlePurchase = (values) => {
-    setUser(values);
-    navigate('/confirmation');
+    setUser(values); // Nustatome vartotojo duomenis
+    navigate('/confirmation'); // Nukreipiame į "Confirmation" puslapį
   };
 
   const handleLogout = () => {
-    setUser(null);
-    navigate('/');
+    setUser(null); // Išvalome vartotojo duomenis
+    navigate('/'); // Grąžiname į pagrindinį puslapį
   };
 
   return (
@@ -46,25 +47,39 @@ export default App;
 const ConfirmationMessage = ({ user }) => {
   const navigate = useNavigate();
 
+  const eventDetails = {
+    name: "Pop Muzikos Koncertas",
+    date: "2024-10-15",
+    location: "Vilniaus arena",
+    price: 50,
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/');
-    }, 3000); // Nukreipimas po 5 sekundžių
+    }, 5000); // Nukreipimas po 5 sekundžių
 
     return () => clearTimeout(timer); // Išvaloma kai komponentas išmontuojamas
   }, [navigate]);
 
   return (
     <div>
-      <p>Pirkimas Sėkmingas! Bilietas išsiųstas į nurodytą el. paštą: {user?.email}</p>
-      <p>Grįžimas į pagrindinį puslapį po 3 sekundžių...</p>
+      <h2>Pirkimas sėkmingas!</h2>
+      <p>Bilietas išsiųstas į el. paštą: {user?.email}</p>
+
+      {/* Generuojame ir rodome bilietą */}
+      <Ticket user={user} eventDetails={eventDetails} />
+
+      <p>Grįžimas į pagrindinį puslapį po 5 sekundžių...</p>
     </div>
   );
 };
 
-// Pridedame PropTypes validaciją ConfirmationMessage komponentui
 ConfirmationMessage.propTypes = {
   user: PropTypes.shape({
-    email: PropTypes.string.isRequired, // Tikimasi, kad user turės email, kuris yra stringas ir privalomas
+    email: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    birthYear: PropTypes.number.isRequired,
   }).isRequired,
 };
