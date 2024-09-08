@@ -1,9 +1,11 @@
+import { QRCodeCanvas } from "qrcode.react"; // Pakeista į pavadintą eksportą
 import Barcode from "react-barcode";
 import PropTypes from "prop-types";
 import "./ticket.scss";
 
 const Ticket = ({ user, eventDetails }) => {
   const ticketNumber = Math.floor(Math.random() * 1000000000);
+  const qrValue = `${user.firstName} ${user.lastName}, Renginys: ${eventDetails.name}, Data: ${eventDetails.date}, Vieta: ${eventDetails.location}, Bilieto nr.: ${ticketNumber}`;
 
   return (
     <div className="ticket">
@@ -17,7 +19,10 @@ const Ticket = ({ user, eventDetails }) => {
         <p><strong>Kaina:</strong> {eventDetails.price} €</p>
         <p><strong>Bilieto numeris:</strong> {ticketNumber}</p>
 
-       
+        <div className="qr-code">
+          <h3>QR kodas</h3>
+          <QRCodeCanvas value={qrValue} /> {/* Pakeista iš QRCode į QRCodeCanvas */}
+        </div>
 
         <div className="barcode">
           <h3>Brūkšninis kodas</h3>
