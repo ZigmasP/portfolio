@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import PurchaseForm from "./components/PurchaseForm";
 import EventDetails from "./components/EventDetails";
-import Ticket from "./components/Ticket"; // Importuojame Ticket komponentą
+import Ticket from "./components/Ticket";
 import PropTypes from "prop-types";
 
 function App() {
@@ -20,6 +20,13 @@ function App() {
     navigate('/'); // Grąžiname į pagrindinį puslapį
   };
 
+  const eventDetails = {
+    name: "Pop Muzikos Koncertas",
+    date: "2024-10-15",
+    location: "Vilniaus arena",
+    price: 50,
+  };
+
   return (
     <div>
       <Header user={user} onLogout={handleLogout} />
@@ -28,31 +35,17 @@ function App() {
         <Route path="/purchase" element={<PurchaseForm onSubmit={handlePurchase} />} />
         <Route 
           path="/confirmation" 
-          element={<ConfirmationMessage user={user} />} 
+          element={user ? <ConfirmationMessage user={user} eventDetails={eventDetails} /> : <p>Klaida: nėra vartotojo duomenų!</p>} 
         />
       </Routes>
     </div>
   );
 }
 
-// Pridedame PropTypes validaciją
-App.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string,
-  }),
-};
-
 export default App;
 
-const ConfirmationMessage = ({ user }) => {
+const ConfirmationMessage = ({ user, eventDetails }) => {
   const navigate = useNavigate();
-
-  const eventDetails = {
-    name: "Pop Muzikos Koncertas",
-    date: "2024-10-15",
-    location: "Vilniaus arena",
-    price: 50,
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -64,8 +57,7 @@ const ConfirmationMessage = ({ user }) => {
 
   return (
     <div>
-      <h2>Pirkimas sėkmingas!</h2>
-      <p>Bilietas išsiųstas į el. paštą: {user?.email}</p>
+      <p>Pirkimas sėkmingas! Bilietas išsiųstas į el. paštą: {user.email}</p>
 
       {/* Generuojame ir rodome bilietą */}
       <Ticket user={user} eventDetails={eventDetails} />
@@ -75,11 +67,18 @@ const ConfirmationMessage = ({ user }) => {
   );
 };
 
+// PropTypes validacija
 ConfirmationMessage.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     birthYear: PropTypes.number.isRequired,
+  }).isRequired,
+  eventDetails: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
   }).isRequired,
 };
