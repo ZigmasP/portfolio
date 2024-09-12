@@ -73,7 +73,7 @@ ConfirmationMessage.propTypes = {
     email: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
-    birthYear: PropTypes.number.isRequired,
+    birthDate: PropTypes.number.isRequired,
   }).isRequired,
   eventDetails: PropTypes.shape({
     name: PropTypes.string.isRequired,

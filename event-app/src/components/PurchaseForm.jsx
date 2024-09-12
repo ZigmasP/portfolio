@@ -1,24 +1,37 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const PurchaseForm = ({ onSubmit }) => {
   const validationSchema = Yup.object({
     firstName: Yup.string().required('Vardas būtinas'),
     lastName: Yup.string().required('Pavardė būtina'),
-    birthYear: Yup.number().min(1900, 'Netinkami gimimo metai').max(new Date().getFullYear(), 'Gimimo metai neturi būti ateityje').required('Gimimo metai būtini'),
+    birthDate: Yup.date()
+      .nullable()
+      .required('Gimimo data būtina')
+      .test(
+        "amzius",
+        "Turite būti bent 16 metų",
+        (value) => {
+          const today = new Date();
+          const minAge = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+          return value && value <= minAge;
+        }
+      ),
     email: Yup.string().email('Netinkamas el. paštas').required('El. paštas būtinas'),
-    phone: Yup.string().required('Tel. nr, būtinas'),
+    phone: Yup.string().required('Tel. nr. būtinas'),
     tickets: Yup.number().min(1, 'Turi būti bent 1 bilietas').required('Reikalingas bilietų skaičius'),
   });
 
   return (
     <Formik
-      initialValues={{ firstName: '', lastName: '', birthYear: '', email: '', phone: '', tickets: 1 }}
+      initialValues={{ firstName: '', lastName: '', birthDate: null, email: '', phone: '', tickets: 1 }}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, setFieldValue, values }) => (
         <Form>
           <div>
             <label htmlFor="firstName">Vardas</label>
@@ -33,9 +46,16 @@ const PurchaseForm = ({ onSubmit }) => {
           </div>
 
           <div>
-            <label htmlFor="birthYear">Gimimo metai</label>
-            <Field id="birthYear" name="birthYear" type="number" />
-            <ErrorMessage name="birthYear" component="div" className="error" />
+            <label htmlFor="birthDate">Gimimo data</label>
+            <DatePicker
+              id="birthDate"
+              selected={values.birthDate}
+              onChange={(date) => setFieldValue('birthDate', date)}
+              dateFormat="yyyy-MM-dd"
+              showYearDropdown
+              scrollableYearDropdown
+            />
+            <ErrorMessage name="birthDate" component="div" className="error" />
           </div>
 
           <div>

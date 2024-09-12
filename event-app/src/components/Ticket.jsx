@@ -1,4 +1,5 @@
-import { QRCodeCanvas } from "qrcode.react"; // Pakeista į pavadintą eksportą
+// ticket.jsx
+import { QRCodeCanvas } from "qrcode.react";
 import Barcode from "react-barcode";
 import PropTypes from "prop-types";
 import "./ticket.scss";
@@ -12,7 +13,7 @@ const Ticket = ({ user, eventDetails }) => {
       <h2>Bilietas</h2>
       <div className="ticket-details">
         <p><strong>Vardas:</strong> {user.firstName} {user.lastName}</p>
-        <p><strong>Gimimo metai:</strong> {user.birthYear}</p>
+        <p><strong>Gimimo data:</strong> {user.birthDate.toLocaleDateString()}</p>
         <p><strong>Renginys:</strong> {eventDetails.name}</p>
         <p><strong>Data:</strong> {eventDetails.date}</p>
         <p><strong>Vieta:</strong> {eventDetails.location}</p>
@@ -21,7 +22,7 @@ const Ticket = ({ user, eventDetails }) => {
 
         <div className="qr-code">
           <h3>QR kodas</h3>
-          <QRCodeCanvas value={qrValue} /> {/* Pakeista iš QRCode į QRCodeCanvas */}
+          <QRCodeCanvas value={qrValue} />
         </div>
 
         <div className="barcode">
@@ -37,7 +38,7 @@ Ticket.propTypes = {
   user: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
-    birthYear: PropTypes.number.isRequired,
+    birthDate: PropTypes.instanceOf(Date).isRequired, // Pakeista į Date
   }).isRequired,
   eventDetails: PropTypes.shape({
     name: PropTypes.string.isRequired,
