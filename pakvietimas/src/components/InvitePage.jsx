@@ -15,7 +15,7 @@ const InvitePage = () => {
             <FaTshirt /> <span>Dress kodas: Elegantiška</span>
           </div>
         </div>
-        <a href="/add-quest" className="guest-link">Pridėti svečią</a>
+        <a href="/add-guest" className="guest-link">Pridėti svečią</a>
       </div>
     </div>
   );
