@@ -1,11 +1,12 @@
-import "./index.scss";
+import { Routes, Route } from "react-router-dom";
+import InvitePage from "./components/InvitePage";
 
-function App() {
+const App = () => {
   return (
-      <div>
-       Pakvietimas
-      </div> 
-  );
+    <Routes>
+      <Route path="/" element={<InvitePage />} />
+    </Routes>
+  )
 };
 
 export default App;
