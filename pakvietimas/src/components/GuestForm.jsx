@@ -1,27 +1,34 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
 import "./GuestForm.scss";
 
-const GuestForm = () => {
+const GuestForm = ({ onSubmit }) => {
   return (
     <Formik
-      initialValues={{ name: '', attendees: '', children: '', phone: '' }}
+      initialValues={{ name: "", attendees: "", children: "", phone: "" }}
       validationSchema={Yup.object({
-        name: Yup.string().required('Vardas yra privalomas'),
+        name: Yup.string().required("Vardas yra privalomas"),
         attendees: Yup.number()
-          .min(1, 'Bent vienas asmuo turi dalyvauti')
-          .required('Laukas privalomas'),
+          .min(1, "Bent vienas asmuo turi dalyvauti")
+          .required("Laukas privalomas"),
         children: Yup.number()
-          .min(0, 'Vaikų skaičius negali būti neigiamas')
-          .required('jei nėra - rašykitę 0'),
+          .min(0, "Vaikų skaičius negali būti neigiamas")
+          .required("jei nėra - rašykite 0"),
         phone: Yup.string()
-          .matches(/^\+?\d{9,12}$/, 'Telefono numeris turi būti validus')
-          .required('Laukas privalomas'),
+          .matches(/^\+?\d{9,12}$/, "Telefono numeris turi būti validus")
+          .required("Laukas privalomas"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { resetForm, setSubmitting }) => {
+        setSubmitting(true);
         setTimeout(() => {
+          // Išvaloma forma
+          resetForm();
+          // Parodoma pateikta informacija (testavimui)
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
+          // Kvieskime tėvinę `onSubmit` funkciją
+          onSubmit();
         }, 400);
       }}
     >
@@ -58,6 +65,11 @@ const GuestForm = () => {
       )}
     </Formik>
   );
+};
+
+// Pridedama propTypes validacija
+GuestForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired, // Funkcija turi būti privaloma
 };
 
 export default GuestForm;
