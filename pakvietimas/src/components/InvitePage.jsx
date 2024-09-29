@@ -40,7 +40,11 @@ const InvitePage = () => {
         )}
 
         {isFormVisible && (
-          <GuestForm onSubmit={handleFormSubmit} />
+          <div className="modal-overlay">
+            <div className="modal">
+              <GuestForm onSubmit={handleFormSubmit} />
+            </div>
+          </div>
         )}
       </div>
     </div>
