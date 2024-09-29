@@ -6,11 +6,19 @@ import "./InvitePage.scss";
 const InvitePage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showThanksMessage, setShowThanksMessage] = useState(false);
 
   // Funkcija, kuri bus iškviečiama pateikus formą
   const handleFormSubmit = () => {
-    setIsFormVisible(false); //Uždaroma forma
-    setIsSubmitted(true); // Parodomas pranešimas
+    setIsFormVisible(false); // Uždaro formą po pateikimo
+    setIsSubmitted(true); // Rodo pranešimą
+    setShowThanksMessage(true); // Rodo "Ačiū" pranešimą
+
+    // Po 3 sekundžių paslepia "Ačiū" pranešimą
+    setTimeout(() => {
+      setShowThanksMessage(false);
+      setIsSubmitted(false); // Galima vėl pridėti kitą svečią
+    }, 3000);
   };
 
   return (
@@ -33,9 +41,9 @@ const InvitePage = () => {
           </button>
         )}
 
-        {isSubmitted && (
+        {showThanksMessage && (
           <div className="thanks-message">
-            <p>Ačiū, kad sutikote dalyvauti!</p>
+            <p>Ačiū, kad sutikote dalyvauti! Susitiksime šventėje.</p>
           </div>
         )}
 
