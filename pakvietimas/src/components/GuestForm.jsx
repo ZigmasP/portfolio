@@ -14,7 +14,7 @@ const GuestForm = ({ onSubmit }) => {
           .required("Laukas privalomas"),
         children: Yup.number()
           .min(0, "Vaikų skaičius negali būti neigiamas")
-          .required("jei nėra - rašykite 0"),
+          .required("Jei nėra - rašykite 0"),
         phone: Yup.string()
           .matches(/^\+?\d{9,12}$/, "Telefono numeris turi būti validus")
           .required("Laukas privalomas"),
@@ -22,13 +22,10 @@ const GuestForm = ({ onSubmit }) => {
       onSubmit={(values, { resetForm, setSubmitting }) => {
         setSubmitting(true);
         setTimeout(() => {
-          // Išvaloma forma
           resetForm();
-          // Parodoma pateikta informacija (testavimui)
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          // Kvieskime tėvinę `onSubmit` funkciją
-          onSubmit();
+          onSubmit(values);
         }, 400);
       }}
     >
@@ -36,25 +33,45 @@ const GuestForm = ({ onSubmit }) => {
         <Form className="guest-form">
           <div>
             <label htmlFor="name">Vardas</label>
-            <Field name="name" type="text" />
+            <Field
+              id="name"
+              name="name"
+              type="text"
+              autoComplete="name"  // Pataisytas autocomplete
+            />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
 
           <div>
             <label htmlFor="attendees">Kiek asmenų dalyvaus</label>
-            <Field name="attendees" type="number" />
+            <Field
+              id="attendees"
+              name="attendees"
+              type="number"
+              autoComplete="off"  // Jei automatinis užpildymas nereikalingas
+            />
             <ErrorMessage name="attendees" component="div" className="error" />
           </div>
 
           <div>
             <label htmlFor="children">Vaikai iki 12 metų</label>
-            <Field name="children" type="number" />
+            <Field
+              id="children"
+              name="children"
+              type="number"
+              autoComplete="off"
+            />
             <ErrorMessage name="children" component="div" className="error" />
           </div>
 
           <div>
             <label htmlFor="phone">Telefono nr.</label>
-            <Field name="phone" type="text" />
+            <Field
+              id="phone"
+              name="phone"
+              type="text"
+              autoComplete="tel"  // Pataisytas autocomplete
+            />
             <ErrorMessage name="phone" component="div" className="error" />
           </div>
 
@@ -67,9 +84,8 @@ const GuestForm = ({ onSubmit }) => {
   );
 };
 
-// Pridedama propTypes validacija
 GuestForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired, // Funkcija turi būti privaloma
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default GuestForm;
