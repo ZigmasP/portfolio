@@ -13,7 +13,7 @@ const applyLithuanianVocative = (name) => {
   } else if (name.endsWith("is")) {
     return name.slice(0, -2) + "i"; // Pvz., "Marius" -> "Mariau"
   } else if (name.endsWith("ė")) {
-    return name; // Moteriški vardai su galūne "ė" lieka nepakitę
+    return name.slice(0, -1) + "e"; // Moteriški vardai su galūne "ė" lieka nepakitę
   } else if (name.endsWith("us")) {
     return name.slice(0, -2) + "au"; // Pvz., "Jonas" -> "Jonai"
   }
