@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaMapMarkerAlt, FaTshirt } from "react-icons/fa";
 import React from "react";
+import { Oval } from "react-loader-spinner";  //Importuojame spinner
 import "./InvitePage.scss";
 
 // Dinaminis komponento importavimas
@@ -44,18 +45,19 @@ const InvitePage = () => {
       <div className="invite-content">
         <h1>50 metų jubiliejus</h1>
         <p>Kviečiame į šventę, skirtą 50-osioms metinėms paminėti!</p>
+        <p>Prašau patvirtinti dalyvavimą iki gruodžio 15 d.</p>
         <div className="details">
           <div className="detail-item">
             <FaMapMarkerAlt /> <span>Adresas: Vilniaus g. 10, Vilnius</span>
           </div>
           <div className="detail-item">
-            <FaTshirt /> <span>Dress kodas: Elegantiška</span>
+            <FaTshirt /> <span>Dress kodas: Smart Casual</span>
           </div>
         </div>
 
         {!isFormVisible && !showThanksMessage && (
           <button onClick={() => setIsFormVisible(true)} className="guest-link">
-            Pridėti svečią
+            Dalyvausiu
           </button>
         )}
 
@@ -71,7 +73,7 @@ const InvitePage = () => {
           <div className="modal-overlay">
             <div className="modal">
               {/* Įkeliame formą tik tada, kai ji yra matoma */}
-              <React.Suspense fallback={<div>Kraunama...</div>}>
+              <React.Suspense fallback={<Oval color="00BFFF" height={100} width={100} />}>
                 <GuestForm onSubmit={handleFormSubmit} />
               </React.Suspense>
             </div>
