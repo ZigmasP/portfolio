@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaMapMarkerAlt, FaTshirt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaTshirt, FaClock } from "react-icons/fa";
 import React from "react";
 import { Oval } from "react-loader-spinner";  //Importuojame spinner
 import "./InvitePage.scss";
@@ -37,7 +37,7 @@ const InvitePage = () => {
     // Po 3 sekundžių paslepia "Ačiū" pranešimą
     setTimeout(() => {
       setShowThanksMessage(false);
-    }, 3000);
+    }, 5000);
   };
 
   return (
@@ -48,10 +48,13 @@ const InvitePage = () => {
         <p>Prašau patvirtinti dalyvavimą iki gruodžio 15 d.</p>
         <div className="details">
           <div className="detail-item">
-            <FaMapMarkerAlt /> <span>Adresas: Vilniaus g. 10, Vilnius</span>
+            <FaMapMarkerAlt color="red" /> <span>Adresas: Vilniaus g. 10, Vilnius</span>
           </div>
           <div className="detail-item">
-            <FaTshirt /> <span>Dress kodas: Smart Casual</span>
+            <FaClock color="green" /> <span>Data: 2024 m. gruodžio 31 d., 18:00 val.</span>
+          </div>
+          <div className="detail-item">
+            <FaTshirt color="gold" /> <span>Dress kodas: Smart Casual</span>
           </div>
         </div>
 
@@ -64,7 +67,7 @@ const InvitePage = () => {
         {showThanksMessage && (
           <div className="thanks-message">
             <p>
-              Ačiū, {guestName}, kad sutikote dalyvauti! Susitiksime šventėje.
+              Ačiū {guestName}, kad sutikote dalyvauti! Susitiksime šventėje.
             </p>
           </div>
         )}
