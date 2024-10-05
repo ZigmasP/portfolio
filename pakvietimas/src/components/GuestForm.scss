@@ -25,14 +25,14 @@
     }
 
     .error {
-      color: red;
+      color: var(--error-color);
       font-size: 0.8rem;
       margin-top: 5px;
     }
   }
 
   button {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
@@ -41,7 +41,7 @@
     margin-top: 10px;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: var(--hover-color);
     }
   }
 }

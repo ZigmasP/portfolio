@@ -1,9 +1,47 @@
 :root {
   --primary-font-family: 'Roboto Condensed', sans-serif;
+  --primary-color: #007bff;
+  --hover-color: #0056b3;
+  --modal-overlay-color: rgba(0, 0, 0, 0.7);
+  --error-color: red;
 }
 
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  font-family: var(--primary-font-family);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+}
+
+.error {
+  color: var(--error-color);
+  font-size: 0.8rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-overlay-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
