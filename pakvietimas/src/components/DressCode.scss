@@ -1,25 +1,74 @@
+:root {
+  --primary-font-family: 'Roboto Condensed', sans-serif;
+}
+
 .dresscode-container {
-    position: relative; /* Leidžia nustatyti mygtuko padėtį santykyje su tėviniu elementu */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    max-width: 600px;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    font-family: var(--primary-font-family);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
   }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-  
-    &:hover {
-      color: red;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.dresscode-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  .dresscode-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+
+    h2 {
+      font-family: var(--primary-font-family);
+      margin-top: 10px;
+      font-size: 1.8rem;
+    }
+
+    p {
+      font-family: var(--primary-font-family);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        font-family: var(--primary-font-family);
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+    }
+
+    svg {
+      margin-bottom: 15px;
     }
   }
-  
+}
