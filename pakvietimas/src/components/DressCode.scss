@@ -1,0 +1,25 @@
+.dresscode-container {
+    position: relative; /* Leidžia nustatyti mygtuko padėtį santykyje su tėviniu elementu */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+  
+    &:hover {
+      color: red;
+    }
+  }
+  

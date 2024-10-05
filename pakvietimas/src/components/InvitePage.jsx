@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaTshirt, FaClock } from "react-icons/fa";
 import React from "react";
 import { Oval } from "react-loader-spinner";  //Importuojame spinner
@@ -54,7 +55,7 @@ const InvitePage = () => {
             <FaClock color="green" /> <span>Data: 2024 m. gruodžio 31 d., 18:00 val.</span>
           </div>
           <div className="detail-item">
-            <FaTshirt color="gold" /> <span>Dress kodas: Smart Casual</span>
+            <FaTshirt color="gold" /> <span>Dress kodas: <Link to="/dress-code">Smart Casual</Link></span>
           </div>
         </div>
 
