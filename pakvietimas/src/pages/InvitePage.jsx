@@ -6,7 +6,7 @@ import { Oval } from "react-loader-spinner";  //Importuojame spinner
 import "./InvitePage.scss";
 
 // Dinaminis komponento importavimas
-const GuestForm = React.lazy(() => import("./GuestForm"));
+const GuestForm = React.lazy(() => import("../components/GuestForm"));
 
 // Funkcija pritaikyti linksnius
 const applyLithuanianVocative = (name) => {
