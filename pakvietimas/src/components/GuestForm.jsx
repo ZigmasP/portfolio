@@ -21,11 +21,27 @@ const GuestForm = ({ onSubmit }) => {
       })}
       onSubmit={(values, { resetForm, setSubmitting }) => {
         setSubmitting(true);
+
+        // Apskaičiuojame suaugusiųjų skaičių
+        const adults = values.attendees - values.children;
+
         setTimeout(() => {
           resetForm();
-          alert(JSON.stringify(values, null, 2));
+
+          // Sukuriame svečio duomenis
+          const guestData = {
+            ...values,
+            adults: adults < 0 ? 0 : adults, // Apsaugome, kad suaugusiųjų skaičius nebūtų neigiamas
+          };
+
+          // Išsaugome svečio duomenis į localStorage
+          const storedGuests = JSON.parse(localStorage.getItem("guestList")) || [];
+          const updatedGuests = [...storedGuests, guestData];
+          localStorage.setItem("guestList", JSON.stringify(updatedGuests));
+
+          // Iškviečiame onSubmit su naujais duomenimis
+          onSubmit(guestData);
           setSubmitting(false);
-          onSubmit(values);
         }, 400);
       }}
     >
@@ -37,18 +53,18 @@ const GuestForm = ({ onSubmit }) => {
               id="name"
               name="name"
               type="text"
-              autoComplete="name"  // Pataisytas autocomplete
+              autoComplete="name" // Pataisytas autocomplete
             />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
 
           <div>
-            <label htmlFor="attendees">Kiek asmenų dalyvaus</label>
+            <label htmlFor="attendees">Kiek asmenų dalyvaus (bendras)</label>
             <Field
               id="attendees"
               name="attendees"
               type="number"
-              autoComplete="off"  // Jei automatinis užpildymas nereikalingas
+              autoComplete="off" // Jei automatinis užpildymas nereikalingas
             />
             <ErrorMessage name="attendees" component="div" className="error" />
           </div>
@@ -70,7 +86,7 @@ const GuestForm = ({ onSubmit }) => {
               id="phone"
               name="phone"
               type="text"
-              autoComplete="tel"  // Pataisytas autocomplete
+              autoComplete="tel" // Pataisytas autocomplete
             />
             <ErrorMessage name="phone" component="div" className="error" />
           </div>

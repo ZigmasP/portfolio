@@ -15,13 +15,26 @@ const GuestListPage = () => {
     <div className="guest-list-page">
       <h1>Svečių sąrašas</h1>
       {guestList.length > 0 ? (
-        <ul>
-          {guestList.map((guest, index) => (
-            <li key={index}>
-              {guest.name} ({guest.attendees} suaugusieji, {guest.children} vaikai)
-            </li>
-          ))}
-        </ul>
+        <table className="guest-table">
+          <thead>
+            <tr>
+              <th>Vardas</th>
+              <th>Suaugę</th>
+              <th>Vaikai</th>
+              <th>Telefonas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {guestList.map((guest, index) => (
+              <tr key={index}>
+                <td>{guest.name}</td>
+                <td>{guest.adults}</td>
+                <td>{guest.children}</td>
+                <td>{guest.phone}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
         <p>Svečių sąrašas tuščias.</p>
       )}
