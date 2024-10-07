@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
+import axios from "axios";  // Pridėta axios importas
 import "./GuestForm.scss";
 
 const GuestForm = ({ onSubmit }) => {
@@ -29,15 +30,20 @@ const GuestForm = ({ onSubmit }) => {
           adults, // Naudojame apskaičiuotą suaugusiųjų skaičių
         };
 
-        // Išsaugome svečio duomenis į localStorage
-        const storedGuests = JSON.parse(localStorage.getItem("guestList")) || [];
-        const updatedGuests = [...storedGuests, guestData];
-        localStorage.setItem("guestList", JSON.stringify(updatedGuests));
-
-        // Iškviečiame onSubmit su naujais duomenimis
-        onSubmit(guestData);
-        resetForm();
-        setSubmitting(false);
+        // Siunčiame POST užklausą į backend'ą
+        axios.post("/api/guests", guestData)  // Naudojame /api/guests proxy kelią
+          .then((response) => {
+            console.log("Sėkmingai išsaugoti duomenys:", response.data);
+            // Iškviečiame onSubmit su naujais duomenimis
+            onSubmit(guestData);
+            resetForm();
+          })
+          .catch((error) => {
+            console.error("Klaida siunčiant duomenis:", error);
+          })
+          .finally(() => {
+            setSubmitting(false);
+          });
       }}
     >
       {({ isSubmitting }) => (

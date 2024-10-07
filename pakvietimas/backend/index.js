@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -7,10 +8,14 @@ const port = process.env.PORT || 3000;
 
 // Duomenų bazės prijungimas
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    charset: 'utf8mb4',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 // Pranešimas apie sėkmingą prisijungimą prie duomenų bazės
@@ -21,10 +26,11 @@ pool.getConnection((err, connection) => {
   }
   console.log('Sėkmingai prisijungta prie DB');
   connection.release(); // Atleidžiame prijungtą jungtį
-})
+});
 
 // Middleware norint priimti JSON duomenis
-app.use(express.json()); // Leidžia naudoti JSON duomenis užklausose
+app.use(express.json());
+app.use(cors());
 
 // Gauti svečių sąrašą
 app.get('/guests', (req, res) => {
@@ -40,8 +46,7 @@ app.get('/guests', (req, res) => {
 // Įrašyti svečio duomenis
 app.post('/guests', (req, res) => {
   const { name, adults, children, phone } = req.body;
-
-  // SQL užklausa su kableliais tarp parametrų
+  
   const sql = 'INSERT INTO guests (name, adults, children, phone) VALUES (?, ?, ?, ?)';
   pool.query(sql, [name, adults, children, phone], (err, results) => {
     if (err) {
