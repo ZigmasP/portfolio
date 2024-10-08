@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Importuojame axios
+import { FiPrinter } from "react-icons/fi"; // Importuojam spausdintuvo ikoną
 import "./GuestListPage.scss";
 
 const GuestListPage = () => {
@@ -22,10 +23,21 @@ const GuestListPage = () => {
     fetchGuests();
   }, []);
 
+  // Funkcija, inicijuojanti spausdinimą
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="guest-list-page">
       <h1>Svečių sąrašas</h1>
       {error && <p className="error">{error}</p>} {/* Rodyti klaidą, jei yra */}
+      <div className="print-section">
+        <button onClick={handlePrint} className="print-button">
+          <FiPrinter size={24} /> {/* Spausdintuvo ikona */}
+          Spausdinti
+        </button>
+      </div>
       {guestList.length > 0 ? (
         <table className="guest-table">
           <thead>

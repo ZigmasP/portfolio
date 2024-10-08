@@ -1,31 +1,88 @@
 .guest-list-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .print-button {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #4CAF50; /* Žalia spalva */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #45a049; /* Tamsesnė žalia */
+    }
+
+    .icon {
+      margin-right: 8px; /* Tarpas tarp ikonos ir teksto */
+      font-size: 18px;
+    }
+  }
+}
+
+.guest-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+/* Spausdinimui skirtos taisyklės */
+@media print {
+  /* Paslėpti viską, išskyrus lentelę */
+  .guest-list-page {
+    padding: 0;
+
+    .print-button,
+    a {
+      display: none; /* Paslėpti spausdinimo mygtuką ir nuorodas */
+    }
   }
   
+  /* Pritaikyti lentelės stilius spausdinimui */
   .guest-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  
+    width: 95%;
+    margin-top: 0;
+
     th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
+      border: 1px solid black; /* Aiškesnės ribos spausdinime */
+      padding: 10px;
     }
-  
+
     th {
-      background-color: #f2f2f2;
+      background-color: white; /* Pakeisti foną į baltą spausdinimui */
+      color: black;
       font-weight: bold;
     }
-  
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-  
-    tr:hover {
-      background-color: #f1f1f1;
+
+    tr {
+      background-color: white; /* Pakeisti eilučių foną į baltą */
     }
   }
-  
+}
