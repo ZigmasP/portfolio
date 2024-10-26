@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import logo from "../asstes/logo.webp";
+import logo from "../assets/logo.webp";
 import "./Header.scss";
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <hedaer>
+    <header>
       <div className="logo">
         <img src={logo} alt="Zigmaswebdev logo" />
       </div>
@@ -33,10 +33,10 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <button className="menu-toggle" onClick={toogleMenu} aria-label="Toggle Menu">
+      <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </button>
-    </hedaer>
+    </header>
   );
 };
 
