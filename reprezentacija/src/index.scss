@@ -1,26 +1,24 @@
 :root {
-    --kreminė: #f6e7d7;
-    --kapučino: #c3b091;
-    --smėlio: #d2b48c;
-  }
+  --kreminė: #f6e7d7;
+  --kapučino: #c3b091;
+  --smėlio: #d2b48c;
+}
 
-  
-  @keyframes slide-in {
-    0% {
-      transform: translateX(-100vw);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 0;
   }
-  
-  body {
-    margin: 0;
-    background-color: var(--kreminė);
-    ;
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
+}
+
+body {
+  margin: 0;
+  background-color: var(--kreminė);
+}
 
 .hero {
   display: flex;
@@ -39,31 +37,101 @@
 }
 
 .contact-box {
-    border: 4px double black;
-    border-radius: 50px;
-    padding: 1rem;
-    margin-top: 1rem;
-    align-items: center;
-    display: inline-block;
-    animation: slide-in 1s ease-in-out;
-  }
+  border: 4px double black;
+  border-radius: 50px;
+  padding: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+  display: inline-block;
+  animation: slide-in 1s ease-in-out;
   
-  .contact-box p {
+  p {
     margin: 0;
     font-size: 1.5rem;
   }
+}
+
+.about-services-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 auto;
+}
 
 .about-container {
   display: flex;
-  width: 700px;
+  width: 650px;
   margin-top: 2rem;
-  
+
   p {
     text-align: justify;
     text-indent: 25px;
     font-size: 1rem;
-    hyphens: auto; /* Automatinis žodžių skaidymas */
-    overflow-wrap: break-word; /* Užtikrina, kad žodžiai bus skaidomi, jei būtina */
+    hyphens: auto;
+    overflow-wrap: break-word;
     margin-left: 15px;
   }
+}
+
+.photo {
+  position: absolute; // Paveikslėlis bus už kitų elementų
+  top: 50%; // Centruoti vertikaliai
+  left: 50%; // Centruoti horizontaliai
+  transform: translate(-50%, -50%); // Centre
+  width: 200px; // Pakeiskite pagal poreikį
+  height: 200px; // Pakeiskite pagal poreikį
+  border: 2px solid #333;
+  border-radius: 50%; // Apvalios formos
+  z-index: 1; // Užtikrina, kad paveikslėlis būtų už teksto
+}
+
+
+.services-container {
+  position: relative;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-right: 20px;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  z-index: -1; // Užtikrina, kad paveikslėlis būtų už teksto
+}
+
+.services-container h2 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); // Suteikia tekstui šešėlį
+  font-size: 3rem;
+  font-weight: bold; // Paryškina tekstą
+}
+
+.services-container ul {
+  list-style: none; // Panaikiname numatytus burbuliukus
+  padding: 0;
+}
+
+.services-container li {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.service-icon {
+  margin-right: 0.5rem; // Atstumas tarp ikonos ir teksto
+  font-size: 1.5rem; // Ikonų dydis
+  color: #f0db4f; // Pritaikykite spalvą, kuri atitinka dizainą
 }
