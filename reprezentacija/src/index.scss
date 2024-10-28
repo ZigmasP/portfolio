@@ -55,12 +55,15 @@
 
 .about-container {
   display: flex;
+  width: 700px;
+  margin-top: 2rem;
   
   p {
     text-align: justify;
     text-indent: 25px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     hyphens: auto; /* Automatinis žodžių skaidymas */
     overflow-wrap: break-word; /* Užtikrina, kad žodžiai bus skaidomi, jei būtina */
+    margin-left: 15px;
   }
 }

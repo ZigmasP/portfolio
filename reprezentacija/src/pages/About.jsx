@@ -1,4 +1,5 @@
 import { FaReact, FaJs, FaNode } from "react-icons/fa";
+import logo from "../assets/CodeAcademy_logo.png";
 import "../index.scss";
 
 const About = () => {
@@ -6,13 +7,13 @@ const About = () => {
      <div className="about-container">
        <div className="about-text">
          <div className="content">
-          <p>Sveiki! Esu pradedentis web programuotojas. Baigiau CodeAcademy kursus.</p>
+          <p>Sveiki! Esu pradedentis web programuotojas. Baigiau <img src={logo} alt="CodeAcademy-logo" style={{ height: "2em", verticalAlign: "middle" }} /> kursus.</p>
           <p>Šiuo metu pagrinde specializuojuosi frontend (<span className="icon-text">
-                <FaReact className="icon" color="#61DBFB" /> React,
+                <FaReact className="icon" color="#61DBFB" /> React, 
               </span>
               <span className="icon-text">
                 <FaJs className="icon" color="#F0DB4F" /> JavaScript
-              </span>) technologijuose. Po truputį gilinuosi ir į backend (<span className="icon-text">
+              </span>) technologijose. Po truputį gilinuosi ir į backend (<span className="icon-text">
                 <FaNode className="icon" color="#68A063" /> Node.js
               </span>).</p>
           <p>Galiu sukurti jums internetinę svetainę, kuri atspindėtų jūsų įmonės viziją, vertybes.</p>

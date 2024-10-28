@@ -19,6 +19,7 @@ const Header = () => {
     <header>
       <div className="logo">
         <img src={logo} alt="Zigmaswebdev logo" />
+        <div className="logo-text">Zigmas WebDev</div>
       </div>
       <nav className={isMenuOpen ? "open" : ""} aria-label="Main Navigation">
         <ul>
