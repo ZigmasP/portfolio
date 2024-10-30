@@ -1,4 +1,4 @@
-import { FaAt, FaPhone } from "react-icons/fa"; 
+import { FaAt, FaPhone, FaGithub } from "react-icons/fa"; 
 import photo from "../assets/photo.webp"; 
 import "../index.scss";
 
@@ -16,7 +16,13 @@ const Contacts = () => {
           <div className="contact-item"> 
             <FaPhone className="icon phone-icon" /> 
             <span>+37060627573</span> 
-          </div> 
+          </div>
+          <div className="contact-item">
+          <a href="https://github.com/ZigmasP/portfolio" target="_blank" rel="noopener noreferrer">
+            <FaGithub className="icon github-icon" /> 
+            <span>Portfolio</span>
+          </a>
+          </div>
         </div> 
       </div> 
     </div> 

@@ -18,7 +18,7 @@ const Home = () => {
         <p>Kuriu modernias svetaines</p>
         {showContactBox && (
           <div className="contact-box">
-            <p>Susisiekime. Tel. nr.: +37060627573</p>
+            <p>Susisiekime. +37060627573</p>
           </div>
         )}
        </section>
