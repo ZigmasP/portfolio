@@ -12,6 +12,9 @@
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 70px;
   display: flex;
@@ -20,7 +23,7 @@ header {
   padding: 0;
   margin: 0;
   background-color: var(--kreminė);
-  
+  z-index: 10; /* Aukštesnis indeksas, kad išliktų virš turinio */
 
   .logo {
     height: 60px;
@@ -35,11 +38,11 @@ header {
       border: 2px solid #333;
     }
 
-  .logo-text {
-    font-family: "Montserrat", sans-serif;
-    font-size: 2rem;
-    padding: 10px;
-  }
+    .logo-text {
+      font-family: "Montserrat", sans-serif;
+      font-size: 2rem;
+      padding: 10px;
+    }
   }
 
   nav {
@@ -95,8 +98,6 @@ header {
     background-color: var(--kreminė);
   }
 
- 
-
   @media only screen and (min-width: 768px) {
     nav {
       display: flex;
@@ -113,4 +114,8 @@ header {
       display: none;
     }
   }
+}
+
+body {
+  padding-top: 70px; /* Pridėta erdvė, kad turinys prasidėtų po header */
 }
