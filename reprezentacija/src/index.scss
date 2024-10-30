@@ -230,6 +230,32 @@ body {
   }
 }
 
+.reviews-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.review {
+  margin: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.filled {
+  color: #ffc107;
+}
+
+.empty {
+  color: #e4e5e9;
+}
+
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .about-services-container {
