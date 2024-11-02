@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Rating from "../components/Rating";
 import "../index.scss";
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
             <p>Susisiekime. +37060627573</p>
           </div>
         )}
+        <Rating />
        </section>
       </div>
     );

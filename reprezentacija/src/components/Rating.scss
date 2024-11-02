@@ -1,0 +1,31 @@
+.average-rating {
+    text-align: center;
+    font-family: var(--font-family);
+    position: fixed;
+    bottom: 100px; // 50px aukščiau, kad liktų vietos footer'ui
+    background-color: var(--kreminė);
+    padding: 1rem;
+  
+    .reviews-link {
+      color: inherit;
+      text-decoration: none;
+  
+      &:hover {
+        color: #ffc107;
+      }
+    }
+  
+    .stars {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .filled {
+      color: #ffc107;
+    }
+  
+    .empty {
+      color: #e4e5e9;
+    }
+  }
+  

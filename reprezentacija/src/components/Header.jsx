@@ -30,6 +30,9 @@ const Header = () => {
             <Link to="/apie-mane" onClick={closeMenu}>Apie mane</Link>
           </li>
           <li>
+            <Link to="/atsiliepimai" onClick={closeMenu}>Atsiliepimai</Link>
+          </li>
+          <li>
             <Link to="/kontaktai" onClick={closeMenu}>Kontaktai</Link>
           </li>
         </ul>
