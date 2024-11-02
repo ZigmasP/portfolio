@@ -1,18 +1,9 @@
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types"; // importuojame PropTypes
 import "./Rating.scss";
 
-const reviews = [
-    { name: "Jonas", rating: 5, comment: "Puiki patirtis!" },
-    { name: "Aistė", rating: 4, comment: "Labai gerai, bet galėtų būti geresnis aptarnavimas." },
-    { name: "Karolis", rating: 5, comment: "Rekomenduoju visiems!" },
-];
-
-const averageRating = Math.round(
-  reviews.reduce((total, review) => total + review.rating, 0) / reviews.length
-);
-
-const Rating = () => (
+const Rating = ({ averageRating }) => (
   <div className="average-rating">
     <Link to="/atsiliepimai" className="reviews-link">Atsiliepimai:</Link>
     <div className="stars">
@@ -22,5 +13,10 @@ const Rating = () => (
     </div>
   </div>
 );
+
+// Nurodome, kad averageRating yra skaičius
+Rating.propTypes = {
+  averageRating: PropTypes.number.isRequired,
+};
 
 export default Rating;
