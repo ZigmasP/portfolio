@@ -235,24 +235,35 @@ body {
   padding: 2rem;
 }
 
+.reviews-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Keturi elementai vienoje eilutėje */
+  gap: 1rem; /* Tarpai tarp elementų */
+  max-height: 400px; /* Nustatykite norimą aukštį */
+  overflow-y: auto; /* Įjungiamas vertikalus slinkimas */
+}
+
 .review {
   margin: 1rem 0;
   border-bottom: 1px solid #ccc;
   padding-bottom: 1rem;
 }
 
-.stars {
-  display: flex;
-  justify-content: center;
-  margin: 0.5rem 0;
-}
+
+
+  .stars {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0;
+  } 
+
 
 .filled {
   color: #ffc107;
 }
 
 .empty {
-  color: #e4e5e9;
+  color: white;
 }
 
 

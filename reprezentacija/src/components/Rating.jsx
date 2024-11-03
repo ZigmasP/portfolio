@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types"; // importuojame PropTypes
+import PropTypes from "prop-types";
 import "./Rating.scss";
 
 const Rating = ({ averageRating }) => (
@@ -14,7 +14,6 @@ const Rating = ({ averageRating }) => (
   </div>
 );
 
-// Nurodome, kad averageRating yra skaičius
 Rating.propTypes = {
   averageRating: PropTypes.number.isRequired,
 };
