@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import PropTypes from "prop-types";
 import "./ReviewForm.scss";
@@ -7,12 +8,22 @@ const ReviewForm = ({ onSubmit }) => {
     <Formik
       initialValues={{ name: "", comment: "", rating: "" }}
       onSubmit={(values, { resetForm }) => {
-        onSubmit({
+        const reviewData = {
           ...values,
           rating: Number(values.rating), // Įsitikinkite, kad reitingas yra skaičius
           date: new Date().toLocaleDateString(),
-        });
-        resetForm();
+        };
+        
+        axios
+          .post("http://localhost:3000/reviews", reviewData)
+          .then((response) => {
+            console.log(response.data.message);
+            onSubmit(reviewData); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
+            resetForm();
+          })
+          .catch((error) => {
+            console.error("Klaida siunčiant atsiliepimą:", error.message);
+          });
       }}
     >
       <Form className="review-form">

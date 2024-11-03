@@ -21,6 +21,22 @@ const pool = mysql.createPool({
    queueLimit: 0
 });
 
+app.post("/reviews", (req, res) => {
+   const { name, comment, rating, date } = req.body;
+
+   //SQL užklausa įrašyti į duomenų bazę
+   const sql = "INSERT INTO reviews (name, comment, rating, date) VALUES (?, ?, ?, ?)";
+   const values = [name, comment, rating, date];
+
+   pool.query(sql, values, (err, result) => {
+      if (err) {
+        console.error("Klaida įrašant atsileipimą:", err.message);
+        return res.status(500)({ success: "false", error: "Klaida įrašant atsiliepimą" });
+      }
+      res.json({ success: true, message: "Atsiliepimas sėkmingai įrašytas" });
+   });
+});
+
 app.delete("/reviews/:id", (req, res) => {
     const reviewId = req.params.id;
  
