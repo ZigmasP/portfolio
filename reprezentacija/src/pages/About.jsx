@@ -1,7 +1,6 @@
 import { FaReact, FaJs, FaNode, FaGlobe, FaWrench } from "react-icons/fa";
 import logo from "../assets/CodeAcademy_logo.png";
-import codeImage from "../assets/code2.jpg";
-
+import codeImage from "../assets/code2.jpg"
 import "../index.scss";
 
 const About = () => {
