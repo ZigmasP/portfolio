@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import PropTypes from "prop-types";
+import DOMPurify from "dompurify";
 import "./ReviewForm.scss";
 
 const ReviewForm = ({ onSubmit }) => {
@@ -8,17 +9,19 @@ const ReviewForm = ({ onSubmit }) => {
     <Formik
       initialValues={{ name: "", comment: "", rating: "" }}
       onSubmit={(values, { resetForm }) => {
-        const reviewData = {
-          ...values,
+        // Valykite įvestis prieš siųsdami
+        const sanitizedValues = {
+          name: DOMPurify.sanitize(values.name),
+          comment: DOMPurify.sanitize(values.comment),
           rating: Number(values.rating), // Įsitikinkite, kad reitingas yra skaičius
           date: new Date().toLocaleDateString(),
         };
-        
+
         axios
-          .post("http://localhost:3000/reviews", reviewData)
+          .post("http://localhost:3000/reviews", sanitizedValues)
           .then((response) => {
             console.log(response.data.message);
-            onSubmit(reviewData); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
+            onSubmit(sanitizedValues); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
             resetForm();
           })
           .catch((error) => {

@@ -2,13 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
-require("dotenv").config;
+const helmet = require("helmet");
+const sanitizeHtml = require("sanitize-html");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(helmet());
 
 const pool = mysql.createPool({
    host: process.env.DB_HOST,
@@ -22,16 +25,19 @@ const pool = mysql.createPool({
 });
 
 app.post("/reviews", (req, res) => {
-   const { name, comment, rating, date } = req.body;
+   const { name, comment, rating } = req.body;
+
+   const sanitizedComment = sanitizeHtml(comment);
+   const sanitizedName = sanitizeHtml(name);
 
    //SQL užklausa įrašyti į duomenų bazę
-   const sql = "INSERT INTO reviews (name, comment, rating, date) VALUES (?, ?, ?, ?)";
-   const values = [name, comment, rating, date];
+   const sql = "INSERT INTO reviews (name, comment, rating) VALUES (?, ?, ?)";
+   const values = [sanitizedName, sanitizedComment, rating];
 
    pool.query(sql, values, (err, result) => {
       if (err) {
         console.error("Klaida įrašant atsileipimą:", err.message);
-        return res.status(500)({ success: "false", error: "Klaida įrašant atsiliepimą" });
+        return res.status(500).json({ success: "false", error: "Klaida įrašant atsiliepimą" });
       }
       res.json({ success: true, message: "Atsiliepimas sėkmingai įrašytas" });
    });
