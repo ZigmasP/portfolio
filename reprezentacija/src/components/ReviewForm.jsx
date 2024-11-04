@@ -18,7 +18,7 @@ const ReviewForm = ({ onSubmit }) => {
         };
 
         axios
-          .post("http://localhost:3000/reviews", sanitizedValues)
+          .post("http://109.235.68.223:3000/reviews", sanitizedValues)
           .then((response) => {
             console.log(response.data.message);
             onSubmit(sanitizedValues); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną

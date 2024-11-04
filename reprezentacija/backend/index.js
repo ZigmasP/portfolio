@@ -31,13 +31,13 @@ app.post("/reviews", (req, res) => {
    const sanitizedName = sanitizeHtml(name);
 
    //SQL užklausa įrašyti į duomenų bazę
-   const sql = "INSERT INTO reviews (name, comment, rating) VALUES (?, ?, ?)";
+   const sql = "INSERT INTO reviews (Vardas, Vertinimas, Atsiliepimas, Data) VALUES (?, ?, ?, 2)";
    const values = [sanitizedName, sanitizedComment, rating];
 
    pool.query(sql, values, (err, result) => {
       if (err) {
         console.error("Klaida įrašant atsileipimą:", err.message);
-        return res.status(500).json({ success: "false", error: "Klaida įrašant atsiliepimą" });
+        return res.status(500)({ success: "false", error: "Klaida įrašant atsiliepimą" });
       }
       res.json({ success: true, message: "Atsiliepimas sėkmingai įrašytas" });
    });
