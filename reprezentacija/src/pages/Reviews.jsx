@@ -1,81 +1,74 @@
-import { useState, useEffect } from "react"; 
-import { FaStar } from "react-icons/fa";
-import ReviewForm from "../components/ReviewForm";
-import "../index.scss";
+import axios from "axios";
+import { Formik, Form, Field } from "formik";
+import PropTypes from "prop-types";
+import DOMPurify from "dompurify";
+import "./ReviewForm.scss";
 
-const Reviews = () => {
-  const loadReviews = () => {
-    const savedReviews = localStorage.getItem("reviews");
-    return savedReviews ? JSON.parse(savedReviews) : [];
-  };
-
-  const [reviews, setReviews] = useState(loadReviews());
-  const [showForm, setShowForm] = useState(false);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedReviews = loadReviews();
-      setReviews(updatedReviews);
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  const handleReviewSubmit = (newReview) => {
-    const updatedReviews = [
-      ...reviews,
-      { ...newReview, date: new Date().toLocaleDateString() },
-    ];
-    setReviews(updatedReviews);
-    setShowForm(false);
-    localStorage.setItem("reviews", JSON.stringify(updatedReviews));
-    window.dispatchEvent(new Event("reviews-updated"));
-  };
-
-  const handleReviewDelete = (index) => {
-    const updatedReviews = reviews.filter((_, i) => i !== index);
-    setReviews(updatedReviews);
-    localStorage.setItem("reviews", JSON.stringify(updatedReviews));
-    window.dispatchEvent(new Event("reviews-updated"));
-  };
-
+const ReviewForm = ({ onSubmit }) => {
   return (
-    <div className="reviews-container">
-      <h2>Klientų atsiliepimai</h2>
-      
-      <button onClick={() => setShowForm(true)} className="leave-review-button">
-        Palikite atsiliepimą
-      </button>
+    <Formik
+      initialValues={{ name: "", comment: "", rating: "" }}
+      onSubmit={(values, { resetForm }) => {
+        // Valykite įvestis prieš siųsdami
+        const sanitizedValues = {
+          name: DOMPurify.sanitize(values.name),
+          comment: DOMPurify.sanitize(values.comment),
+          rating: Number(values.rating), // Įsitikinkite, kad reitingas yra skaičius
+          date: new Date().toLocaleDateString(),
+        };
 
-      {showForm && <ReviewForm onSubmit={handleReviewSubmit} />}
-
-      {/* Įdedame "reviews-wrapper" aplink visas atsiliepimų korteles */}
-      <div className="reviews-wrapper">
-        {reviews.map((review, index) => (
-          <div key={index} className="review">
-            <h3>{review.name}</h3>
-            <div className="stars">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={i < review.rating ? "filled" : "empty"}
-                />
+        axios
+          .post("http://109.235.68.223:3306/reviews", sanitizedValues)
+          .then((response) => {
+            console.log(response.data.message);
+            onSubmit(sanitizedValues); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
+            resetForm();
+          })
+          .catch((error) => {
+            console.error("Klaida siunčiant atsiliepimą:", error.message);
+          });
+      }}
+    >
+      {({ setFieldValue }) => (
+        <Form className="review-form">
+          <h2>Palikite Atsiliepimą</h2>
+          <div className="form-group">
+            <label htmlFor="name">Vardas</label>
+            <Field name="name" type="text" placeholder="Įveskite savo vardą" />
+          </div>
+          <div className="form-group">
+            <label>Įvertinimas</label>
+            <div className="rating-group">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <label key={star} className="rating-bubble">
+                  <Field 
+                    type="radio" 
+                    name="rating" 
+                    value={star} 
+                    onChange={() => setFieldValue("rating", star)} // Pridėta logika, kad pažymėtų vertinimą
+                  />
+                  <span>{star}</span>
+                </label>
               ))}
             </div>
-            <p>{review.comment}</p>
-            <p>{review.date}</p>
-            <button onClick={() => handleReviewDelete(index)} className="delete-button">
-              Ištrinti
-            </button>
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="form-group">
+            <label htmlFor="comment">Atsiliepimas</label>
+            <Field
+              name="comment"
+              as="textarea"
+              placeholder="Parašykite savo atsiliepimą"
+            />
+          </div>
+          <button type="submit" className="submit-button">Siųsti atsiliepimą</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default Reviews;
+ReviewForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default ReviewForm;

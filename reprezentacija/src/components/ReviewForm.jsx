@@ -17,6 +17,11 @@ const ReviewForm = ({ onSubmit }) => {
           date: new Date().toLocaleDateString(),
         };
 
+        // Išsaugome atsiliepimą į LocalStorage
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        reviews.push(sanitizedValues);
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+
         axios
           .post("http://109.235.68.223:3000/reviews", sanitizedValues)
           .then((response) => {
@@ -29,33 +34,40 @@ const ReviewForm = ({ onSubmit }) => {
           });
       }}
     >
-      <Form className="review-form">
-        <h2>Palikite Atsiliepimą</h2>
-        <div className="form-group">
-          <label htmlFor="name">Vardas</label>
-          <Field name="name" type="text" placeholder="Įveskite savo vardą" />
-        </div>
-        <div className="form-group">
-          <label>Įvertinimas</label>
-          <div className="rating-group">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <label key={star} className="rating-bubble">
-                <Field type="radio" name="rating" value={star} />
-                <span>{star}</span>
-              </label>
-            ))}
+      {({ setFieldValue }) => (
+        <Form className="review-form">
+          <h2>Palikite Atsiliepimą</h2>
+          <div className="form-group">
+            <label htmlFor="name">Vardas</label>
+            <Field name="name" type="text" placeholder="Įveskite savo vardą" />
           </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="comment">Atsiliepimas</label>
-          <Field
-            name="comment"
-            as="textarea"
-            placeholder="Parašykite savo atsiliepimą"
-          />
-        </div>
-        <button type="submit" className="submit-button">Siųsti atsiliepimą</button>
-      </Form>
+          <div className="form-group">
+            <label>Įvertinimas</label>
+            <div className="rating-group">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <label key={star} className="rating-bubble">
+                  <Field 
+                    type="radio" 
+                    name="rating" 
+                    value={star} 
+                    onChange={() => setFieldValue("rating", star)} // Pridėta logika, kad pažymėtų vertinimą
+                  />
+                  <span>{star}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="comment">Atsiliepimas</label>
+            <Field
+              name="comment"
+              as="textarea"
+              placeholder="Parašykite savo atsiliepimą"
+            />
+          </div>
+          <button type="submit" className="submit-button">Siųsti atsiliepimą</button>
+        </Form>
+      )}
     </Formik>
   );
 };
