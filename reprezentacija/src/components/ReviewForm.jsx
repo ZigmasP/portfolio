@@ -9,7 +9,6 @@ const ReviewForm = ({ onSubmit }) => {
     <Formik
       initialValues={{ name: "", comment: "", rating: "" }}
       onSubmit={(values, { resetForm }) => {
-        // Valykite įvestis prieš siųsdami
         const sanitizedValues = {
           name: DOMPurify.sanitize(values.name),
           comment: DOMPurify.sanitize(values.comment),
@@ -18,7 +17,7 @@ const ReviewForm = ({ onSubmit }) => {
         };
 
         axios
-          .post("http://109.235.68.223:3000/reviews", sanitizedValues)
+          .post("http://109.235.68.223:3000/reviews", sanitizedValues) // Pakeiskite į savo backend URL
           .then((response) => {
             console.log(response.data.message);
             onSubmit(sanitizedValues); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
