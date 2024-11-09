@@ -5,14 +5,22 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const helmet = require("helmet");
 const sanitizeHtml = require("sanitize-html");
+const path = require("path");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // CORS nustatymai
-app.use(cors({ origin: "http://localhost:5173" })); // Nustatykite į frontend'o adresą
+app.use(cors({ 
+    origin: "http://localhost:5173",
+    methods: "GET, POST, DELETE",
+    credentials: true
+})); // Nustatykite į frontend'o adresą
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -25,6 +33,40 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
+app.post("/admin/login", async (req, res) => {
+   const { username, password } = req.body;
+
+   const adminUsername = process.env.ADMIN_USERNAME;
+   const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+
+   if (username !== adminUsername) {
+     return res.status(401).json({ success: false, error: "Neteisingi prisijungimo duomenys" });
+   }
+
+   const match = await bcrypt.compare(password, adminPasswordHash);
+   if (!match) {
+     return res.status(401).json({ success: false, error: "Neteisingas slaptažodis" });
+   }
+
+   const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, { expiresIn: '1h' });
+   res.json({ success: true, token });
+});
+
+// Mdlleware funkcija autentifikacijai
+function authenticateToken(req, res, next) {
+  const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
+  if (!token) return res.status(401).json({ success: false, error, error: "Nepateiktas tokenas" });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+     if (err) return res.status(403).json({ success: false, error: "Neteisingas arba pasibaigęs tokenas" });
+
+     if(user.role !== "admin") return res.status(403).json({ success: false, error: "Prieiga atmesta" });
+
+     req.user = user;
+     next();
+  });
+}
+
 // Įrašyti atsiliepimą
 app.post("/reviews", (req, res) => {
     const { name, comment, rating } = req.body;
@@ -33,8 +75,8 @@ app.post("/reviews", (req, res) => {
     const sanitizedName = sanitizeHtml(name);
 
     // SQL užklausa įrašyti į duomenų bazę
-    const sql = "INSERT INTO reviews (Vardas, Vertinimas, Atsiliepimas, Data) VALUES (?, ?, ?, NOW())"; // Naudokite NOW() vietoj 2
-    const values = [sanitizedName, sanitizedComment, rating];
+    const sql = "INSERT INTO atsiliepimai (Vardas, Vertinimas, Atsiliepimas, Data) VALUES (?, ?, ?, NOW())"; // Naudokite NOW() vietoj 2
+    const values = [sanitizedName, rating, sanitizedComment];
 
     pool.query(sql, values, (err, result) => {
         if (err) {
@@ -49,7 +91,7 @@ app.post("/reviews", (req, res) => {
 app.delete("/reviews/:id", (req, res) => {
     const reviewId = req.params.id;
 
-    pool.query("DELETE FROM reviews WHERE id = ?", [reviewId], (err, result) => {
+    pool.query("DELETE FROM atsiliepimai WHERE id = ?", [reviewId], (err, result) => {
         if (err) {
             console.error("Klaida šalinant atsiliepimą:", err.message);
             return res.status(500).json({ success: false, error: "Klaida šalinant atsiliepimą" });
