@@ -10,7 +10,7 @@ const Reviews = () => {
 
   useEffect(() => {
     // Pirmiausia, paklauskite atsiliepimų iš serverio
-    axios.get("http://109.235.68.223:3000/reviews")
+    axios.get("http://127.0.0.1:3000/reviews")
       .then(response => {
         setReviews(response.data);
       })
@@ -30,7 +30,7 @@ const Reviews = () => {
   };
 
   const handleReviewDelete = (id) => {
-    axios.delete(`http://109.235.68.223:3000/reviews/${id}`)
+    axios.delete(`http://127.0.0.1:3000/reviews/${id}`)
       .then(response => {
         console.log(response.data.message);
         setReviews(reviews.filter(review => review.id !== id));

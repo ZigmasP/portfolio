@@ -17,7 +17,7 @@ const ReviewForm = ({ onSubmit }) => {
         };
 
         axios
-          .post("http://109.235.68.223:3000/reviews", sanitizedValues) // Pakeiskite į savo backend URL
+          .post("http://127.0.0.1:3000/reviews", sanitizedValues) // Pakeiskite į savo backend URL
           .then((response) => {
             console.log(response.data.message);
             onSubmit(sanitizedValues); // Papildomai iškviečiame `onSubmit`, jei norite lokaliai atnaujinti būseną
